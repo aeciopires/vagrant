@@ -1,0 +1,74 @@
+#Informacoes
+# autor: "Aécio Pires" 
+# email: http://blog.aeciopires.com/contato
+
+#------------------------------------------------#
+# Declaracao de variaveis
+#------------------------------------------------#
+VAGRANTFILE_API_VERSION = "2"
+HOSTNAME                = "master.domain.com.br"
+
+#Nome da box (template do S.O) obtido em: 
+#  https://app.vagrantup.com/boxes/search
+BOXNAME = "debian/stretch64"
+
+#Nome da interface de rede do host local a ser usada
+#para a VM receber um IP via DHCP
+NETWORK_INTERFACE = "enp2s0"
+
+#Quantidade de memoria da VM (em MB)
+MEMORY = "512"
+
+#Quantidade de CPUs para a VM
+CPU = "1"
+
+#Tamanho do HD da VM
+DISKSIZE = "20GB"
+
+#Diretorio de origem do seu host.
+# pode ser um diretorio com path (caminho) relativo no qual esta o arquivo Vagranfile
+# ou pode ser um path (caminho) completo.
+#
+#O conteudo das pastas sera sincronizado apos a execucao de um dos comandos abaixo
+#--> vagrant up
+#--> vagrant reload
+DIR_SOURCE = "data/"
+
+#Diretorio destino dentro da VM
+DIR_DESTINY = "/vagrant"
+
+#Definindo o locale da VM, independente do host hospedeiro
+ENV["LC_ALL"] = "en_US.UTF-8"
+#------------------------------------------------#
+
+
+
+#*******************************#
+#Inicio das configuracoes da VM
+#*******************************#
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  config.vm.hostname          = HOSTNAME
+  config.vm.box               = BOXNAME
+  config.vm.box_check_update  = true
+  config.vm.synced_folder     DIR_SOURCE, DIR_DESTINY
+  config.disksize.size        = DISKSIZE
+  config.vm.provider "virtualbox" do |vb|
+    vb.name        = HOSTNAME
+    vb.customize ["modifyvm", :id, "--ioapic", "on"]
+    vb.cpus        = CPU
+    vb.memory      = MEMORY
+  end
+  config.vm.network "public_network",
+    use_dhcp_assigned_default_route: true,
+    bridge: NETWORK_INTERFACE
+#  config.ssh.private_key_path = "~/.ssh/id_rsa"
+#  config.ssh.keys_only        = false
+#  config.ssh.username         = "livro"
+#  config.ssh.password         = "livro"
+#  insert_key                  = true
+#  config.ssh.port             = 2220
+#  config.ssh.forward_agent    = true
+
+end
