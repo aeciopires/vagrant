@@ -3,6 +3,7 @@ user { 'livro':
   comment  => 'user livro,,,',
   groups   => ['livro', 'sudo', 'vagrant',],
   home     => '/home/livro',
+  #A senha eh: livro
   password => '$6$LyFI6Js1$/jopKYrVoUmfuGvfz54Q6eoZTyqf6X//WcGCQgdcqD919V..isRDr2dbCw2P2Z8V2mbIZ.miWavHu/GgRb9xC/',
   shell    => '/bin/bash',
   require  => Group['livro'],

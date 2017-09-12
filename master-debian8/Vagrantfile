@@ -74,7 +74,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     bridge: NETWORK_INTERFACE
   config.vm.provision "puppet" do |puppet|
     puppet.manifests_path = DIR_MANIFESTS
-    puppet.manifest_file = MANIFEST
+    puppet.manifest_file  = MANIFEST
   end
 #  config.ssh.private_key_path = "~/.ssh/id_rsa"
 #  config.ssh.keys_only        = false
