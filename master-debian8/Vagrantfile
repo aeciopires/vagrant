@@ -13,11 +13,11 @@ HOSTNAME                = "master.domain.com.br"
 
 #Nome da box (template do S.O) obtido em: 
 #  https://app.vagrantup.com/boxes/search
-BOXNAME = "debian/stretch64"
+BOXNAME = "puppetlabs/debian-8.2-64-puppet"
 
 #Nome da interface de rede do host local a ser usada
 #para a VM receber um IP via DHCP
-NETWORK_INTERFACE = "enp2s0"
+NETWORK_INTERFACE = "wlp6s0"
 
 #Quantidade de memoria da VM (em MB)
 MEMORY = "512"
@@ -26,7 +26,7 @@ MEMORY = "512"
 CPU = "1"
 
 #Tamanho do HD da VM
-DISKSIZE = "20GB"
+DISKSIZE = "10GB"
 
 #Diretorio de origem do seu host.
 # pode ser um diretorio com path (caminho) relativo no qual esta o arquivo Vagranfile
@@ -39,6 +39,12 @@ DIR_SOURCE = "data/"
 
 #Diretorio destino dentro da VM
 DIR_DESTINY = "/vagrant"
+
+#Diretorio relativo dos manifests Puppet
+DIR_MANIFESTS = "manifests"
+
+#Nome do manifest Puppet
+MANIFEST = "user.pp"
 
 #Definindo o locale da VM, independente do host hospedeiro
 ENV["LC_ALL"] = "en_US.UTF-8"
@@ -66,6 +72,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network "public_network",
     use_dhcp_assigned_default_route: true,
     bridge: NETWORK_INTERFACE
+  config.vm.provision "puppet" do |puppet|
+    puppet.manifests_path = DIR_MANIFESTS
+    puppet.manifest_file = MANIFEST
+  end
 #  config.ssh.private_key_path = "~/.ssh/id_rsa"
 #  config.ssh.keys_only        = false
 #  config.ssh.username         = "livro"
