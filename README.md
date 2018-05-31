@@ -18,7 +18,7 @@ O Vagrant é um software que permite criar máquinas virtuais (para Virtualbox o
 
 Para automatizar e simplificar a criação de máquinas virtuais com Vagrant, você pode criar um arquivo chamado Vagranfile e nele definir as configurações da mesma. Mais informações sobre esse arquivo podem ser obtidas na página: https://www.vagrantup.com/docs/vagrantfile
 
-Cada VM criada no Vagrant usa uma box, que é como templates de um sistema básico pronto. Várias boxes podem ser encontradas na página: https://app.vagrantup.com/boxes/search
+Cada VM criada no Vagrant usa uma box, que é como um template de um sistema básico pronto. Várias boxes podem ser encontradas na página: https://app.vagrantup.com/boxes/search
 
 Neste repositório, você encontrará a configuração realizada para diversos tipos de máquinas virtuais usando o CentOS, Debian e Ubuntu, além dos manifests Puppet que serão executados nas máquinas virtuais quando forem criadas.
 
